@@ -1,0 +1,48 @@
+<div id="profile">
+ <img src='https://graph.facebook.com/<%= @profile["id"] %>/picture' alt='picture'>
+ <div class="profile_info">
+    <h2><%= @profile["first_name"] %> <%= @profile["last_name"] %></h2>
+    <p>Facebook ID: <%= @profile["id"] %></p>
+    <h3>Email Address: <%= @profile["email"] %></h3>
+ </div>
+</div>
+
+<p>Add a task for others to see</p>
+
+<form action="/tasks" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input type="hidden" name="user_id" value="<%= @user.id %>"></input>
+  <p>Title:
+    <input type="text" name="task[title]">
+  </p>
+  <p>Description:
+    <input type="test" name="task[description]"></input>
+  </p>
+  <p>
+    <input type="submit" value="Add">
+  </p>
+</form>
+
+
+<p>My tasks</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Title</td>
+      <td>Description</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.id %></td>
+      <td><%= task.title %></td>
+      <td><%= task.description %></td>
+      <td>Edit</td>
+      <td>Delete (can only delete if owner)</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

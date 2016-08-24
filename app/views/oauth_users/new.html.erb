@@ -1,0 +1,30 @@
+<h2>Please create a password</h2>
+
+<% if session[:access_token] %>
+  <div id="profile">
+   <img src='https://graph.facebook.com/<%= @profile["id"] %>/picture' alt='picture'>
+   <div class="profile_info">
+      <h2><%= @profile["first_name"] %> <%= @profile["last_name"] %></h2>
+      <p>Facebook ID: <%= @profile["id"] %></p>
+      <p>Email Address: <%= @profile["email"] %></p>
+   </div>
+  </div>
+<% end %>
+
+
+<form action="/users" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input name="user[first_name]" value="<%= @first_name %>" type="hidden">
+  <input name="user[last_name]" value="<%= @last_name %>" type="hidden">
+  <input name="user[email]" value="<%= @email %>" type="hidden">
+
+  <p>Password
+    <input type="password" name="user[password]"></input>
+  </p>
+  <p>Password Confirmation
+    <input type="password" name="user[password_confirmation]">
+  </p>
+  <p>
+    <input type="submit" value="Create">
+  </p>
+</form>

@@ -1,0 +1,17 @@
+<h1>edit page for task#: </h1>
+
+
+<form action="/tasks" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input name="_method" value="patch" type="hidden">
+  <input name="id" value="<%= @task.id %>" type="hidden">
+  <p>Title
+    <input type="text" name="task[title]" placeholder="<%= @task.title %>">
+  </p>
+  <p>Description
+    <input type="text" name="task[description]" placeholder="<%= @task.description %>">
+  </p>
+  <p>
+    <input type="submit" value="Create New Task">
+  </p>
+</form>

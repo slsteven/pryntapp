@@ -1,0 +1,46 @@
+<h1>Tasks you can add to your own profile</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Created_at</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.id %></td>
+        <td><%= task.title %></td>
+        <td><%= task.description %></td>
+        <td><%= task.created_at %></td>
+
+        <td>
+          <form action="/add_tasks" method="post">
+            <input type='hidden' name='authenticity_token' value='<%= form_authenticity_token %>'>
+            <input type='hidden' name='task_id' value="<%= task.id %>"</input>
+            <input type="submit" value="Add Task">
+          </form>
+        </td>
+        <td><%= link_to "Edit", task_path(task.id), :method => :get%></td>
+        <td><%= link_to "Delete", "/tasks/#{task.id}", :method => :delete%></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<h2>Would you like to create and new one?</h2>
+<form action="/new_tasks" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <p>Title
+    <input type="text" name="task[title]">
+  </p>
+  <p>Description
+    <input type="text" name="task[description]">
+  </p>
+  <p>
+    <input type="submit" value="Create New Task">
+  </p>
+</form>
+

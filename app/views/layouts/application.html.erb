@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prynt</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">TASK</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <% if current_user %>
+          <li><a href="/tasks">Home</a></li>
+          <li><a href="/users/<%= current_user.id %>">Profile</a></li>
+          <li><%= link_to "logout", {:controller=> "sessions", :action=> "destroy"}, :method => :delete%>
+          </li>
+        <% else %>
+          <li class="active"><a href="/home">Login/Signup</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <% if flash[:success] %>
+      <p><%= flash[:success] %></p>
+    <% end %>
+
+    <%= yield %>
+
+  </div>
+</body>
+</html>
+
+
